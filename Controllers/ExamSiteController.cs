@@ -7,11 +7,21 @@ using System.Threading.Tasks;
 
 namespace Exam_Management.Controllers
 {
+    [Route("/examSite")]
     public class ExamSiteController : Controller
     {
+
+        public ExamSiteController()
+        {
+
+        }
+
         // GET: ExamSiteController
+        [HttpGet]
+        [Route("")]
         public ActionResult Index()
         {
+
             return View();
         }
 

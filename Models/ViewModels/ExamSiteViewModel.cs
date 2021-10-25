@@ -18,5 +18,9 @@ namespace Exam_Management.Models.ViewModels
             Code = examSite.Code;
             Name = examSite.Name; 
         }
+
+        public ExamSiteViewModel()
+        {
+        }
     }
 }
