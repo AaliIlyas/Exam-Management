@@ -7,15 +7,6 @@ using System.Threading.Tasks;
 
 namespace Exam_Management.Repositories
 {
-    public interface IExamSiteRepo
-    {
-        IEnumerable<ExamSite> getAll();
-        void AddExamSite(ExamSiteViewModel examSite); //ExamSiteRequestModel
-        ExamSite GetExamSiteById(int id);
-        void UpdateExamSite(ExamSiteViewModel examSite);
-        void DeleteExamSite(int id);
-    }
-
     public class ExamSiteRepo : IExamSiteRepo
     {
         public ExamContext _context;
@@ -50,13 +41,11 @@ namespace Exam_Management.Repositories
         }
         public void UpdateExamSite(ExamSiteViewModel examSite)
         {
-            var examSiteDbModel = new ExamSite()
-            {
-                Code = examSite.Code,
-                Name = examSite.Name,
-            };
+            var site = _context.ExamSite.Find(examSite.Id);
 
-            _context.ExamSite.Update(examSiteDbModel);
+            site.Code = examSite.Code;
+            site.Name = examSite.Name;
+
             _context.SaveChanges();
         }
 
