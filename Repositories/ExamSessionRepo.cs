@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace Exam_Management.Repositories
 {
@@ -59,9 +60,14 @@ namespace Exam_Management.Repositories
                 .FirstOrDefault();
         }
 
-        public IEnumerable<ExamSession> Search()
+        public IEnumerable<ExamSession> Search(ExamSessionRequestModel search)
         {
-            throw new NotImplementedException();
+            return _context.ExamSession.Include(s => s.ExamSite)
+                .Where(s => search.SessionName == null || search.SessionName == s.SessionName)
+                .Where(s => search.ExamSiteId == null || search.ExamSiteId == s.ExamSite.Id)
+                .Where(s => search.StartDate == null || s.StartDate >= search.StartDate)
+                .Where(s => search.EndDate == null || s.EndDate <= search.EndDate)
+                .OrderBy(s => s.SessionName);
         }
 
         public void Update(ExamSessionRequestModel examSession)

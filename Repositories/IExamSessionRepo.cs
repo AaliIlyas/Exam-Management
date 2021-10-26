@@ -10,7 +10,7 @@ namespace Exam_Management.Repositories
         void DeleteExamSession(int id);
         IEnumerable<ExamSession> GetAll();
         ExamSession GetExamSessionById(int id);
-        IEnumerable<ExamSession> Search();
+        IEnumerable<ExamSession> Search(ExamSessionRequestModel search);
         void Update(ExamSessionRequestModel examSession);
     }
 }

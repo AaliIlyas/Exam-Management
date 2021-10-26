@@ -16,7 +16,6 @@ namespace Exam_Management.Models.RequestModels
         public DateTime? StartDate { get; set; }
         [RequireWhenStartExists]
         public DateTime? EndDate { get; set; }
-        [Required]
-        public int ExamSiteId { get; set; }
+        public int? ExamSiteId { get; set; }
     }
 }
