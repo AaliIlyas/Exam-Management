@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Exam_Management.Models.RequestModels;
+using Exam_Management.Models.ViewModels;
+using Exam_Management.Repositories;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,10 +13,10 @@ namespace Exam_Management.Controllers
     [Route("/examSite")]
     public class ExamSiteController : Controller
     {
-
-        public ExamSiteController()
+        public IExamSessionRepo _ExamSessionRepo;
+        public ExamSiteController(IExamSessionRepo examSessionRepo)
         {
-
+            _ExamSessionRepo = examSessionRepo;
         }
 
         // GET: ExamSiteController
@@ -21,18 +24,23 @@ namespace Exam_Management.Controllers
         [Route("")]
         public ActionResult Index()
         {
+            var examSessions = _ExamSessionRepo.GetAll()
+                .Select(s => new ExamSessionViewModel(s));
 
-            return View();
+            return View(examSessions);
         }
 
         // GET: ExamSiteController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var dbSession = _ExamSessionRepo.GetExamSessionById(id);
+            var session = new ExamSessionViewModel(dbSession);
+
+            return View(session);
         }
 
-        // GET: ExamSiteController/Create
-        public ActionResult Create()
+        [HttpGet]
+        public ActionResult CreateSession()
         {
             return View();
         }
@@ -44,11 +52,30 @@ namespace Exam_Management.Controllers
         {
             try
             {
+                var id = collection["Id"];
+                var sessionName = collection["SessionName"];
+                var description = collection["Description"];
+                var startDate = collection["StartDate"];
+                var endDate = collection["EndDate"];
+                var examSiteId = collection["examSiteId"];
+
+                var examSession = new ExamSessionRequestModel()
+                {
+                    Id = int.Parse(id),
+                    SessionName = sessionName,
+                    Description = description,
+                    StartDate = DateTime.Parse(startDate),
+                    EndDate = DateTime.Parse(endDate),
+                    ExamSiteId = int.Parse(examSiteId)
+                };
+
+                _ExamSessionRepo.AddExamSession(examSession);
+
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return View("CreateSession", new { Error = "Invalid Input" });
             }
         }
 
@@ -63,8 +90,25 @@ namespace Exam_Management.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
+            var sessionName = collection["SessionName"];
+            var description = collection["Description"];
+            var startDate = collection["StartDate"];
+            var endDate = collection["EndDate"];
+            var examSiteId = collection["examSiteId"];
+
+            var examSession = new ExamSessionRequestModel()
+            {
+                Id = id,
+                SessionName = sessionName,
+                Description = description,
+                StartDate = DateTime.Parse(startDate),
+                EndDate = DateTime.Parse(endDate),
+                ExamSiteId = int.Parse(examSiteId)
+            };
+
             try
             {
+                _ExamSessionRepo.Update(examSession);
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -74,24 +118,21 @@ namespace Exam_Management.Controllers
         }
 
         // GET: ExamSiteController/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
         {
-            return View();
+            var session = _ExamSessionRepo.GetExamSessionById(id);
+            return View(session);
         }
 
         // POST: ExamSiteController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        [Route("/Delete/Post/{id}")]
+        public ActionResult Delete(ExamSessionRequestModel request)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _ExamSessionRepo.DeleteExamSession((int)request.Id);
+            return RedirectToAction(nameof(Index));
         }
     }
 }

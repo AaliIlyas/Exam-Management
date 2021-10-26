@@ -33,6 +33,7 @@ namespace Exam_Management
             });
 
             services.AddTransient<IExamSiteRepo, ExamSiteRepo>();
+            services.AddTransient<IExamSessionRepo, ExamSessionRepo>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
