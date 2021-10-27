@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Exam_Management.Controllers
 {
-    [Route("/examSite")]
+    [Route("/ExamSite")]
     public class ExamSiteController : Controller
     {
         public IExamSessionRepo _ExamSessionRepo;
