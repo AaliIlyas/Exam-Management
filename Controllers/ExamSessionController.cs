@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Exam_Management.Controllers
 {
-    [Route("/ExamSite")]
-    public class ExamSiteController : Controller
+    [Route("/ExamSession")]
+    public class ExamSessionController : Controller
     {
         public IExamSessionRepo _ExamSessionRepo;
-        public ExamSiteController(IExamSessionRepo examSessionRepo)
+        public ExamSessionController(IExamSessionRepo examSessionRepo)
         {
             _ExamSessionRepo = examSessionRepo;
         }
@@ -25,20 +25,22 @@ namespace Exam_Management.Controllers
         public ActionResult Index()
         {
             var examSessions = _ExamSessionRepo.GetAll()
-                .Select(s => new ExamSessionViewModel(s));
+                .Select(s => new ExamSessionViewModel(s, true));
 
             return View(examSessions);
         }
 
         // GET: ExamSiteController/Details/5
+        [Route("Details")]
         public ActionResult Details(int id)
         {
             var dbSession = _ExamSessionRepo.GetExamSessionById(id);
-            var session = new ExamSessionViewModel(dbSession);
+            var session = new ExamSessionViewModel(dbSession, true);
 
             return View(session);
         }
 
+        [Route("Create")]
         [HttpGet]
         public ActionResult CreateSession()
         {
@@ -79,12 +81,6 @@ namespace Exam_Management.Controllers
             }
         }
 
-        // GET: ExamSiteController/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
         // POST: ExamSiteController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -119,19 +115,21 @@ namespace Exam_Management.Controllers
 
         // GET: ExamSiteController/Delete/5
         [HttpGet]
+        [Route("Delete")]
         public ActionResult Delete(int id)
         {
-            var session = _ExamSessionRepo.GetExamSessionById(id);
+            var dbModel = _ExamSessionRepo.GetExamSessionById(id);
+            var session = new ExamSessionViewModel(dbModel, true);
+
             return View(session);
         }
 
         // POST: ExamSiteController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Route("/Delete/Post/{id}")]
-        public ActionResult Delete(ExamSessionRequestModel request)
+        public ActionResult DeleteSession(ExamSessionViewModel session)
         {
-            _ExamSessionRepo.DeleteExamSession((int)request.Id);
+            _ExamSessionRepo.DeleteExamSession(session.SessionId);
             return RedirectToAction(nameof(Index));
         }
     }

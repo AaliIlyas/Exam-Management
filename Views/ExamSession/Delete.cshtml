@@ -1,0 +1,39 @@
+﻿@using Exam_Management.Models.ViewModels;
+@model ExamSessionViewModel;
+
+<h1>Confirm Delete (Permanent)</h1>
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Session Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Exam Site</th>
+        <th>View / Edit</th>
+    </tr>
+
+    <tr>
+        @{ 
+            var start = Model.StartDate == null ? "Unset" : Model.StartDate.ToString();
+            var end = Model.EndDate == null ? "Unset" : Model.EndDate.ToString();
+        }
+
+        <td>Model.SessionId</td>
+        <td>@Model.SessionName</td>
+        <td>@Model.Description</td>
+        <td>@start</td>
+        <td>@end</td>
+        <td>@Model.ExamSite.Name</td>
+    </tr>
+</table>
+
+<form method="post" asp-controller="ExamSession" asp-action="DeleteSession">
+    <input asp-for="SessionId" value="@Model.SessionId" alt="Id" type="hidden" />
+    <br />
+    <h4>Delete book? (Warning: permanent)</h4>
+    <br />
+    <button type="submit">DELETE BOOK</button>
+</form>
+

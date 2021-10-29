@@ -49,6 +49,7 @@ namespace Exam_Management.Repositories
         public IEnumerable<ExamSession> GetAll()
         {
             return _context.ExamSession
+                .Include(s => s.ExamSite)
                 .OrderBy(s => s.SessionName)
                 .ToList();
         }
@@ -56,13 +57,15 @@ namespace Exam_Management.Repositories
         public ExamSession GetExamSessionById(int id)
         {
             return _context.ExamSession
+                .Include(s => s.ExamSite)
                 .Where(s => s.SessionId == id)
                 .FirstOrDefault();
         }
 
         public IEnumerable<ExamSession> Search(ExamSessionRequestModel search)
         {
-            return _context.ExamSession.Include(s => s.ExamSite)
+            return _context.ExamSession
+                .Include(s => s.ExamSite)
                 .Where(s => search.SessionName == null || search.SessionName == s.SessionName)
                 .Where(s => search.ExamSiteId == null || search.ExamSiteId == s.ExamSite.Id)
                 .Where(s => search.StartDate == null || s.StartDate >= search.StartDate)

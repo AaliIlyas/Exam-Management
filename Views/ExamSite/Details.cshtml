@@ -1,0 +1,56 @@
+﻿@using Exam_Management.Models.ViewModels
+@model ExamSessionViewModel;
+@{ 
+    var start = Model.StartDate == null ? "Unset" : Model.StartDate.ToString();
+    var end = Model.EndDate == null ? "Unset" : Model.EndDate.ToString();
+}
+
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>Id</th>
+        <th>Session Name</th>
+        <th>Description</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Exam Site</th>
+        <th>View / Edit</th>
+    </tr>
+
+    <tr>
+        <td>Model.SessionId</td>
+        <td>@Model.SessionName</td>
+        <td>@Model.Description</td>
+        <td>@start</td>
+        <td>@end</td>
+        <td>@Model.ExamSite.Name</td>
+    </tr>
+</table>
+
+<form method="post" asp-controller="ExamSession" asp-action="Edit">
+    <p>Session Name</p>
+    <input type="text" name="SessionName" value=@Model.SessionName alt="Session Name" required="required">
+
+    <p>Description</p>
+    <input type="text" name="Description" value=@Model.Description alt="Description" required="required">
+
+    <p>Start Date</p>
+    <input type="date" name="StartDate" value=@Model.StartDate alt="Start Date" required="required">
+
+    <p>End Date</p>
+    <input type="date" name="EndDate" value=@Model.StartDate alt="End Date" required="required">
+
+    <p>Exam Site Id</p>
+    <input type="number" name="ExamSiteId" value=@Model.ExamSite.Id alt="Exam Site Id" required="required">
+
+    <input name="Id" value="@Model.SessionId" alt="Id" type="hidden" />
+
+    <button type="submit">Edit details</button>
+</form>
+
+
+<h4>Delete book?</h4>
+<br />
+<a href="/ExamSession/Delete/@Model.SessionId">
+    <button">DELETE BOOK</button>
+</a>
+
