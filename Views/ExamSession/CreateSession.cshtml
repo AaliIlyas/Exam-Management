@@ -1,31 +1,31 @@
-﻿@model string;
+﻿@using Exam_Management.Models.RequestModels;
+@model ExamSessionRequestModel;
 
 <h1>Create a new Exam Session</h1>
 
-@{ 
-    if (Model != null)
-    {
-       <p>@Model</p>
-    }
-}
-
 <form method="post" asp-controller="ExamSession" asp-action="Create">
     <p>Session Name</p>
-    <input type="text" name="SessionName" alt="Session Name" required="required">
+    <input type="text" asp-for="SessionName" alt="Session Name" required="required">
 
     <p>Description</p>
-    <input type="text" name="Description" alt="Description" required="required">
+    <input type="text" asp-for="Description" alt="Description" required="required">
 
     <p>Start Date</p>
-    <input type="date" name="StartDate" alt="Start Date">
+    <input type="date" asp-for="StartDate" alt="Start Date">
 
     <p>End Date</p>
-    <input type="date" name="EndDate" alt="End Date">
+    <input type="date" asp-for="EndDate" alt="End Date">
 
     <p>Exam Site Id</p>
-    <input type="number" name="ExamSiteId" alt="Exam Site Id" required="required">
+    <input type="number" asp-for="ExamSiteId" alt="Exam Site Id" required="required">
 
-    <input name="Id" alt="Id" type="hidden" />
+    <input asp-for="Id" alt="Id" type="hidden" />
 
     <button type="submit">Create</button>
 </form>
+<br />
+
+<p>Note that you will require an exam site to create an exam session, so create one of those first if you don't have one.'</p>
+
+<br />
+<a href="/ExamSession/Index">Go back</a>

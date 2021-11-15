@@ -1,56 +1,38 @@
 ﻿@using Exam_Management.Models.ViewModels
-@model ExamSessionViewModel;
-@{ 
-    var start = Model.StartDate == null ? "Unset" : Model.StartDate.ToString();
-    var end = Model.EndDate == null ? "Unset" : Model.EndDate.ToString();
-}
+@model ExamSiteViewModel;
 
 <table class="table table-bordered table-responsive table-hover">
     <tr>
         <th>Id</th>
-        <th>Session Name</th>
-        <th>Description</th>
-        <th>Start Date</th>
-        <th>End Date</th>
-        <th>Exam Site</th>
-        <th>View / Edit</th>
+        <th>Code</th>
+        <th>Name</th>
     </tr>
 
     <tr>
-        <td>Model.SessionId</td>
-        <td>@Model.SessionName</td>
-        <td>@Model.Description</td>
-        <td>@start</td>
-        <td>@end</td>
-        <td>@Model.ExamSite.Name</td>
+        <td>@Model.Id</td>
+        <td>@Model.Code</td>
+        <td>@Model.Name</td>
     </tr>
 </table>
 
-<form method="post" asp-controller="ExamSession" asp-action="Edit">
-    <p>Session Name</p>
-    <input type="text" name="SessionName" value=@Model.SessionName alt="Session Name" required="required">
+<form method="post" asp-controller="ExamSite" asp-action="Edit">
+    <p>Code</p>
+    <input type="number" name="Code" value=@Model.Code alt="Code" required="required">
 
-    <p>Description</p>
-    <input type="text" name="Description" value=@Model.Description alt="Description" required="required">
+    <p>Name</p>
+    <input type="text" name="Name" value=@Model.Name alt="Name" required="required">
 
-    <p>Start Date</p>
-    <input type="date" name="StartDate" value=@Model.StartDate alt="Start Date" required="required">
-
-    <p>End Date</p>
-    <input type="date" name="EndDate" value=@Model.StartDate alt="End Date" required="required">
-
-    <p>Exam Site Id</p>
-    <input type="number" name="ExamSiteId" value=@Model.ExamSite.Id alt="Exam Site Id" required="required">
-
-    <input name="Id" value="@Model.SessionId" alt="Id" type="hidden" />
+    <input name="Id" value="@Model.Id" alt="Id" type="hidden" />
 
     <button type="submit">Edit details</button>
 </form>
 
 
-<h4>Delete book?</h4>
+<h4>Delete?</h4>
 <br />
-<a href="/ExamSession/Delete/@Model.SessionId">
-    <button">DELETE BOOK</button>
+<a href="/ExamSite/Delete/@Model.Id">
+    <button">DELETE</button>
 </a>
 
+<br />
+<a href="/ExamSite/Index">Go back</a>

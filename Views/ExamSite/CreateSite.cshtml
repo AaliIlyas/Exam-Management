@@ -1,0 +1,23 @@
+﻿@model string;
+
+<h1>Create a new Exam Session</h1>
+
+@{
+    if (Model != null)
+    {
+        <p>@Model</p>
+    }
+}
+
+<form method="post" asp-controller="ExamSite" asp-action="Create">
+    <p>Code</p>
+    <input type="text" name="Code" alt="Code" required="required">
+
+    <p>Name</p>
+    <input type="text" name="Name" alt="Name" required="required">
+
+    <button type="submit">Create</button>
+</form>
+
+<br />
+<a href="/ExamSite/Index">Go back</a>

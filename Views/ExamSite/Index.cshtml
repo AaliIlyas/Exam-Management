@@ -1,10 +1,10 @@
 ﻿@using Exam_Management.Models.ViewModels;
-@model IEnumerable<ExamSessionViewModel>;
+@model IEnumerable<ExamSiteViewModel>;
 
 <h1>Books</h1>
 
 @{
-if (Model.Count() == 0)
+    if (Model.Count() == 0)
     {
         <div class="">
             <p>There are no Exam sessions</p>
@@ -17,28 +17,18 @@ if (Model.Count() == 0)
         <table class="table table-bordered table-responsive table-hover">
             <tr>
                 <th>Id</th>
-                <th>Session Name</th>
-                <th>Description</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Exam Site</th>
+                <th>Code</th>
+                <th>Name</th>
                 <th>View / Edit</th>
             </tr>
 
-            @foreach (var session in Model)
+            @foreach (var site in Model)
             {
-                var start = session.StartDate == null ? "Unset" : session.StartDate.ToString();
-                var end = session.EndDate == null ? "Unset" : session.EndDate.ToString();
                 <tr>
-                    <td>@session.SessionId</td>
-                    <td>@session.SessionName</td>
-                    <td>@session.Description</td>
-                    <td>@start</td>
-                    <td>@end</td>
-                    <td>@session.ExamSite.Name</td>
-
-                    @*TODO - Add links here*@
-                    <td><a href="/ExamSession/Details/@session.SessionId"><button>View / Edit</button></a></td>
+                    <td>@site.Id</td>
+                    <td>@site.Code</td>
+                    <td>@site.Name</td>
+                    <td><a href="/ExamSite/Details/@site.Id"><button>View / Edit</button></a></td>
                 </tr>
             }
         </table>
@@ -46,5 +36,5 @@ if (Model.Count() == 0)
 }
 
 
-@*<br />
-    <a href="/books/new">Create new book</a>*@
+<br />
+<a href="/ExamSite/CreateSite">Create new Site</a>

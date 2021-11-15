@@ -9,24 +9,22 @@ using System.Threading.Tasks;
 
 namespace Exam_Management.Controllers
 {
-    public class ExamSite : Controller
+    public class ExamSiteController : Controller
     {
         public IExamSiteRepo _examSiteRepo;
-        public ExamSite(IExamSiteRepo examSiteRepo)
+        public ExamSiteController(IExamSiteRepo examSiteRepo)
         {
             _examSiteRepo = examSiteRepo;
         }
 
-        // GET: ExamSite
         public ActionResult Index()
         {
-            var sites = _examSiteRepo.getAll();
-            var viewModelSites = sites.Select(s => new ExamSiteViewModel(s));
+            var sites = _examSiteRepo.GetAll();
+            var siteViewModel = sites.Select(s => new ExamSiteViewModel(s));
 
-            return View(viewModelSites);
+            return View(siteViewModel);
         }
 
-        // GET: ExamSite/Details/5
         public ActionResult Details(int id)
         {
             var site = _examSiteRepo.GetExamSiteById(id);
@@ -35,18 +33,15 @@ namespace Exam_Management.Controllers
             return View(siteViewModel);
         }
 
-        // GET: ExamSite/Create
-        public ActionResult Create()
+        public ActionResult CreateSite()
         {
             return View();
         }
 
-        // POST: ExamSite/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
         {
-            var id = collection["Id"];
             var code = collection["Code"];
             var name = collection["Name"];
 
@@ -54,7 +49,6 @@ namespace Exam_Management.Controllers
             {
                 var site = new ExamSiteViewModel()
                 {
-                    Id = int.Parse(id),
                     Code = code,
                     Name = name
                 };
@@ -68,18 +62,15 @@ namespace Exam_Management.Controllers
             }
         }
 
-        // GET: ExamSite/Edit/5
         public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: ExamSite/Edit/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
         {
-            var siteId = id;
+            var siteId = collection["id"];
             var code = collection["Code"];
             var name = collection["Name"];
 
@@ -104,22 +95,23 @@ namespace Exam_Management.Controllers
         // GET: ExamSite/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var dbmodel = _examSiteRepo.GetExamSiteById(id);
+            var view = new ExamSiteViewModel(dbmodel);
+            return View(view);
         }
 
         // POST: ExamSite/Delete/5
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteSite(int id)
+        public ActionResult DeleteSite(ExamSiteViewModel site)
         {
             try
             {
-                _examSiteRepo.DeleteExamSite(id);
+                _examSiteRepo.DeleteExamSite(site.Id);
                 return RedirectToAction(nameof(Index));
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
             }
         }
     }

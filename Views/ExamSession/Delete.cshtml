@@ -1,7 +1,7 @@
 ﻿@using Exam_Management.Models.ViewModels;
 @model ExamSessionViewModel;
 
-<h1>Confirm Delete (Permanent)</h1>
+<h1>Confirm Delete (Warning Permanent)</h1>
 
 <table class="table table-bordered table-responsive table-hover">
     <tr>
@@ -15,7 +15,7 @@
     </tr>
 
     <tr>
-        @{ 
+        @{
             var start = Model.StartDate == null ? "Unset" : Model.StartDate.ToString();
             var end = Model.EndDate == null ? "Unset" : Model.EndDate.ToString();
         }
@@ -32,8 +32,10 @@
 <form method="post" asp-controller="ExamSession" asp-action="DeleteSession">
     <input asp-for="SessionId" value="@Model.SessionId" alt="Id" type="hidden" />
     <br />
-    <h4>Delete book? (Warning: permanent)</h4>
+    <h4>Delete</h4>
     <br />
-    <button type="submit">DELETE BOOK</button>
+    <button type="submit">DELETE</button>
 </form>
 
+<br />
+<a href="/ExamSession/Details/@Model.SessionId">Go back</a>

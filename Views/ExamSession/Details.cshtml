@@ -1,6 +1,6 @@
 ﻿@using Exam_Management.Models.ViewModels
 @model ExamSessionViewModel;
-@{ 
+@{
     var start = Model.StartDate == null ? "Unset" : Model.StartDate.ToString();
     var end = Model.EndDate == null ? "Unset" : Model.EndDate.ToString();
 }
@@ -34,10 +34,10 @@
     <input type="text" name="Description" value=@Model.Description alt="Description" required="required">
 
     <p>Start Date</p>
-    <input type="date" name="StartDate" value=@Model.StartDate alt="Start Date" required="required">
+    <input type="date" name="StartDate" value=@Model.StartDate alt="Start Date">
 
     <p>End Date</p>
-    <input type="date" name="EndDate" value=@Model.StartDate alt="End Date" required="required">
+    <input type="date" name="EndDate" value=@Model.StartDate alt="End Date">
 
     <p>Exam Site Id</p>
     <input type="number" name="ExamSiteId" value=@Model.ExamSite.Id alt="Exam Site Id" required="required">
@@ -48,9 +48,11 @@
 </form>
 
 
-<h4>Delete book?</h4>
+<h4>Delete?</h4>
 <br />
 <a href="/ExamSession/Delete/@Model.SessionId">
-    <button">DELETE BOOK</button>
+    <button">DELETE</button>
 </a>
 
+<br />
+<a href="/ExamSession/Index">Go back</a>

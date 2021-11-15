@@ -1,10 +1,10 @@
 ﻿@using Exam_Management.Models.ViewModels;
 @model IEnumerable<ExamSessionViewModel>;
 
-<h1>Books</h1>
+<h1>Exam Sessions</h1>
 
 @{
-if (Model.Count() == 0)
+    if (Model.Count() == 0)
     {
         <div class="">
             <p>There are no Exam sessions</p>
@@ -36,8 +36,6 @@ if (Model.Count() == 0)
                     <td>@start</td>
                     <td>@end</td>
                     <td>@session.ExamSite.Name</td>
-
-                    @*TODO - Add links here*@
                     <td><a href="/ExamSession/Details/@session.SessionId"><button>View / Edit</button></a></td>
                 </tr>
             }
@@ -45,6 +43,5 @@ if (Model.Count() == 0)
     }
 }
 
-
-@*<br />
-    <a href="/books/new">Create new book</a>*@
+<br />
+<a href="/ExamSession/CreateSession">Create</a>

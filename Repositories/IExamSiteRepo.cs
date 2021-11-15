@@ -8,7 +8,7 @@ namespace Exam_Management.Repositories
     {
         void AddExamSite(ExamSiteViewModel examSite);
         void DeleteExamSite(int id);
-        IEnumerable<ExamSite> getAll();
+        IEnumerable<ExamSite> GetAll();
         ExamSite GetExamSiteById(int id);
         void UpdateExamSite(ExamSiteViewModel examSite);
     }

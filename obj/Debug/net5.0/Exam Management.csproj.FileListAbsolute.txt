@@ -178,3 +178,7 @@ C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSession\Delete.csh
 C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSession\Details.cshtml.g.cs
 C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSession\Index.cshtml.g.cs
 C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSession\CreateSession.cshtml.g.cs
+C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSite\Delete.cshtml.g.cs
+C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSite\Details.cshtml.g.cs
+C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSite\Index.cshtml.g.cs
+C:\.Training\Exam Management\obj\Debug\net5.0\Razor\Views\ExamSite\CreateSite.cshtml.g.cs

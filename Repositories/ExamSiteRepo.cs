@@ -16,7 +16,7 @@ namespace Exam_Management.Repositories
             _context = examContext;
         }
 
-        public IEnumerable<ExamSite> getAll()
+        public IEnumerable<ExamSite> GetAll()
         {
             return _context.ExamSite
                 .ToList();
